@@ -1,0 +1,31 @@
+<!-- newbie_u_page.html -->
+
+{% extends "login/base.html" %}
+
+{% block contents %}
+<script>
+</script>
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h1>USERPAGE</h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        {{error}}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+            {% csrf_token %}
+            <h1>{{w_message}}</h1>
+            <hr>
+            <a href="/ch_p_page">비밀번호변경</a>
+            <hr>
+            <a href="/logout">로그아웃</a>
+    </div>
+</div>
+
+
+{% endblock %}

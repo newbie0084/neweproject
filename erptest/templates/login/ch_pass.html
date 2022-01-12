@@ -1,0 +1,64 @@
+<!-- ch_pass.html -->
+{% extends "login/base.html" %}
+
+{% block contents %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    function ch_pass(){
+        var n_pass = document.getElementById('password').value;
+        var n_r_pass = document.getElementById('re-password').value;
+
+        if(n_pass!=n_r_pass){
+            alert('비밀번호가 다릅니다. 다시 입력하십시오.');
+        }
+        else{
+            $.ajax({
+                url: '/ch_pass/',
+                method : 'POST',
+                data: {n_pass: n_pass},
+                beforeSend: function() {
+                // things to do before submit
+                },
+                success: function(response) {
+                    alert('변경완료');
+                    window.location.href = '/userpage'
+                }
+            });
+        }
+    };
+</script>
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h1>비밀번호 변경</h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        {{error}}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+            {% csrf_token %}
+            <h1>{{w_message}}</h1>
+            <hr>
+            <div class="form-group">
+                <label for="password">비밀번호 입력</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+            </div>
+            <div class="form-group">
+                <label for="re-password">비밀번호 확인</label>
+                <input type="password" class="form-control" id="re-password" name="re-password" placeholder="비밀번호 확인">
+            </div>
+            <hr>
+            <button class="btn btn-primary" style="float: right;"  onclick="ch_pass()">제출</button>
+            <!-- <button type="submit" class="btn btn-primary" style="float: right;"  onclick="ch_pass()">제출</button> -->
+            <!-- <input type="submit" onclick="ch_pass()" value="제출" style="float: right;"> -->
+            <a href = '/userpage'>유저 페이지로 이동</a>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/com_logo.PNG">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-color:rgb(197, 197, 197);
+            padding: 0;
+            margin: 0;
+        }
+        .pdata{
+			list-style-type: none;
+        }
+        .main_container {
+            width:100%;
+            height:100%;
+        }ul {
+			list-style-type: none;
+			overflow: hidden;
+		}.navi li { 
+            float: left; 
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }.navi2 li { 
+            float: left; 
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }.main_container {
+            width:100%;
+            height:100%;
+        }.u_id {
+            padding: 15px;
+        }
+        .nav-item {
+            padding: 15px;
+            cursor: pointer; /*마우스 커서를 pointer 모양으로 함*/
+        }
+        .nav-item a { /*nav-item 클래스 아래의 a 요소를 선택함*/
+            font-size: 23px;
+            text-align: center;
+            text-decoration: none; /*밑줄 없앰*/
+            color: white;
+        }
+        .nav-item:nth-child(1) {
+            background-color: lightseagreen;
+	        border-radius: 10px / 10px;
+        }
+
+        .nav-item:hover {
+            background-color: grey;
+	        border-radius: 10px / 10px;
+        }.nav-item2 {
+            padding: 15px;
+            cursor: pointer; /*마우스 커서를 pointer 모양으로 함*/
+        }
+        .nav-item2 a { /*nav-item 클래스 아래의 a 요소를 선택함*/
+            text-align: center;
+            text-decoration: none; /*밑줄 없앰*/
+            color: black;
+            font-size: 23px;
+        }
+        .nav-item2:nth-child(1) {
+            background-color: rgb(197, 197, 197);
+	        border-radius: 10px / 10px;
+        }
+
+        .nav-item2:hover {
+            background-color: grey;
+	        border-radius: 10px / 10px;
+        }.navi {
+            overflow-y: scroll;
+            list-style-type: none; /*목록 기호 제거*/
+            width:100%;
+            height:55px;
+            margin: 0; /*쓸 데 없는 공백 제거*/
+            padding: 0; /*쓸 데 없는 공백 제거*/
+            background-color: darkslategrey;
+            float:left;
+            border-bottom-width:thin;
+            border-bottom-color:rgba(25,80,100,0);
+            border-bottom:solid;
+        }
+        .navi2 {
+            list-style-type: none; /*목록 기호 제거*/
+            width:100%;
+            height:55px;
+            margin: 0; /*쓸 데 없는 공백 제거*/
+            padding: 0; /*쓸 데 없는 공백 제거*/
+            background-color: lightseagreen;
+            float:left;
+            border-bottom-width:thin;
+            border-bottom-color:rgba(25,80,100,0);
+            border-bottom:solid;
+        }
+        .listtitle {
+            width:100%;
+            height:120px;
+            background-color:rgb(197, 197, 197);
+            float:left;
+        }
+        .listtitle p{
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .listtitle hr{
+            margin: 0;
+            padding: 0;
+        }
+        .list {
+            width:100%;
+            background-color:rgb(197, 197, 197);
+            float:left;
+            border-bottom-width:thin;
+            border-bottom-color:rgba(25,80,100,0);
+            border-bottom:solid;
+
+        }
+        .maintable tr{
+            border : 1pt solid #444444;
+        }
+        .maintable td{
+            border : 1pt solid #444444;
+            text-align: center;
+        }
+
+        .maintable table{
+            margin:auto;
+            width: 1100pt;
+        }
+        .button_d{
+            margin-top: 3px;
+            margin-bottom: 3px;
+            padding-left: 24px;
+        }
+        .button_d input{
+            font-size: 25px;
+        }
+        li{
+            text-align: center;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        //가격변경
+        function valchange(a){
+            $(document).ready(function(){
+                var l_cost = $("."+a+"#"+a).val()*1.15;
+                var h_cost = $("."+a+"#"+a).val()*1.6;
+
+                $("div."+a).text(Math.floor(l_cost));
+                $("label."+a).text(Math.floor(h_cost));
+            });
+                
+        };
+        
+        //그래프
+        function graph(index,num) {
+            var idx = index;
+            var n = num-1;
+            var item_name = $("span."+num).text();
+            var i_standard = $("a."+num).text();
+            var i_co = $("li."+num).text();
+            var lista = $('span');
+            $.ajax({
+                            url: '/makegraph/',
+                            method : 'POST',
+                            data: {item_name: item_name,i_standard:i_standard,idx:idx,i_co:i_co},
+                            beforeSend: function() {
+                            // things to do before submit
+                            },
+                            success: function(response) {
+                                fnImgPop('../../static/graph.png');
+                                location.reload();
+                            }
+                        });
+
+        };
+        // 그래프새창
+        function fnImgPop(url){
+          var img=new Image();
+          img.src=url;
+          var popupX=(window.screen.width/2)-400;
+          var popupY=(window.screen.height/2)-300;
+          var OpenWindow=window.open('','_blank', 'width=800px, height=600px, menubars=no, scrollbars=auto'+ ', left='+ popupX + ', top='+ popupY);
+          OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='800px'>");
+         }
+        
+        //저장
+        function save(len_i){
+            var data ='';
+            for(var i = 1;i<=len_i;i++){
+                
+                // data += $("p."+i).text();//idx
+                // data +=']';
+                // data += $("span."+i).text();//name
+                // data +=']';
+                // data += $("a."+i).text();//standard
+                // data +=']';
+                data += $("input."+i).val();//cost
+                data +='>';
+                
+            };
+            // data.replace(',','!');
+            /*
+            var my_form = document.forms[0];
+            my_form.elements['wdata'].value = data;
+            alert(my_form.elements['wdata'].value);
+            document.getElementById("my_form").submit();
+            window.location.href = '/savelist/';
+            */
+            $.ajax({
+                url: '/savelist/',
+                method : 'POST',
+                data: {wdata: data},
+                beforeSend: function() {
+                // things to do before submit
+                },
+                success: function(response) {
+                    alert('저장완료');
+                    location.reload();
+                }
+            });
+            
+        };
+
+        //추가줄
+        function add_item_box(){
+            document.getElementById('add_item_box').style.cssText = 'display:true;';
+        };
+        //추가
+        function add(len_i){
+            var add_name = document.getElementById('add_name').value;
+            var add_st = document.getElementById('add_st').value;
+            var add_comp = document.getElementById('add_comp').value;
+            var add_cost = document.getElementById('add_cost').value;
+            var tri = 0;
+            for(var i = 1;i<=len_i;i++){
+                if(add_name==$("span."+i).text()&&add_st==$("a."+i).text()&&" "+add_comp==$("li."+i).text()){
+                    tri = 1;
+                    alert(i+'번과 데이터 중복');
+                    break;
+                }
+            }
+            if(tri == 0){
+                $.ajax({
+                    url: '/addlist/',
+                    method : 'POST',
+                    data: {add_name: add_name,add_st: add_st,add_comp: add_comp,add_cost: add_cost},
+                    beforeSend: function() {
+                    // things to do before submit
+                    },
+                    success: function(response) {
+                        alert('추가완료');
+                        location.reload();
+                    }
+                });
+            };
+        };
+    
+        //삭제
+        function del(len_i){
+            var data_num = prompt('데이터 번호를 입력하세요.', 0);
+            var del_name = $("span."+data_num).text();
+            var del_standard = $("a."+data_num).text();
+            var del_comp = $("li."+data_num).text();
+            var del_cost = $("input."+data_num).val();
+            var del_string = del_name+"|"+del_standard+"|"+del_comp+"|"+del_cost;
+            if(data_num==null){
+            }
+            else{
+                if(data_num>0&&len_i-data_num>=0){
+                    if (confirm(data_num+ "번 데이터 "+del_string+"을 삭제합니다. 계속합니까?")) {
+                    // 확인 버튼 클릭 시 동작
+                        $.ajax({
+                            url: '/deldata/',
+                            method : 'POST',
+                            data: {del_name: del_name,del_standard:del_standard,del_comp:del_comp,del_cost:del_cost},
+                            beforeSend: function() {
+                            // things to do before submit
+                            },
+                            success: function(response) {
+                                alert('제거완료');
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        // 취소 버튼 클릭 시 동작
+                        alert("동작을 취소했습니다.");
+                    };
+                }
+                else{
+                    if (confirm("숫자를 정확히 입력하세요. 계속합니까?")) {
+                    // 확인 버튼 클릭 시 동작
+                        del(len_i);
+                    } else {
+                        // 취소 버튼 클릭 시 동작
+                        alert("동작을 취소했습니다.");
+                    };
+                };
+            };
+        };
+        
+        //날짜삭제줄
+        function del_date_line(){
+            document.getElementById('del_d_cost').style.cssText = 'display:true;';
+        };
+        //날짜삭제
+        function del_date_cost(){
+            var del_date = document.getElementById('del_date').value;
+            var del_name = document.getElementById('del_name').value;
+            var del_com = document.getElementById('del_com').value;
+            var del_st = document.getElementById('del_st').value;
+            if(del_date==''){
+                alert('날짜비어있음');
+            }
+            else if(del_name==''){
+                alert('품명비어있음');
+            }
+            else{
+                if (confirm(del_date+'|'+del_name+'|'+del_com+'|'+del_st+'|'+"을 삭제합니다. 계속합니까?")) {
+                    $.ajax({
+                        url: '/deldel_costdata/',
+                        method : 'POST',
+                        data: {del_date:del_date,del_name:del_name,del_com:del_com,del_st:del_st},
+                        beforeSend: function() {
+                        // things to do before submit
+                        },
+                        success: function(response) {
+                            alert('제거완료');
+                            location.reload();
+                        }
+                    });
+                }
+                else{
+                    alert("동작을 취소했습니다.");
+                }
+            }
+        };
+    
+    </script>
+
+
+</head>
+<body>
+    <div style="display: none;">
+        <input id = "len_idx" value = {{ len_idx }}>
+    </div>
+    <div class='main_container'>
+        <div class='navi'>
+            <ul class="nav-container">
+                <li class="nav-item"> <a href="/m_p_stock_location">재고 현황</a> </li>
+                <li class="nav-item"> <a href="/m_p_list">자재 목록</a> </li>
+                <li class="nav-item"><a href="/m_import2">입고 / 출고</a> </li>
+                <li class="nav-item" style="float: right;"><a href="/logout">로그아웃</a></li>
+                <li class="u_id" style="float: right;">{{l_id}}({{l_name}})</li>
+                <style>.u_id {padding: 15px;}</style>
+            </ul>
+        </div>
+        <div class='navi2'>
+            <ul class="nav-container2">
+                <li class="nav-item2"> <a href="/m_p_stock_location">위치별</a> </li>
+            </ul>
+        </div>
+        <div class='listtitle' >
+            <p style="text-align: center; font-size: 29px; font-weight: 900;">물품 목록(위치별)</p>
+            <hr>
+            <div class="button_d">
+                <select style="font-size: 29px; text-align-last: center; width: 150px;">
+                    <option value="">--선택--</option>
+                    <option value="p_name">제품명</option>
+                    <option value="p_location">위치</option>
+                    <option value="p_class">분류</option>
+                    <option value="p_import_date">입고일</option>
+                    <option value="p_order_site">현장명</option>
+                </select>
+                <input type="text" class="search_data">
+                <input type="submit" value="검색">
+                <!-- <input type="submit" class = 'savebutton' id = {{ len_idx }} onclick="save(this.id)" value="검색"> -->
+            </div>
+            <hr>
+        </div>
+
+        <!-- 품명 리스트 -->
+        <div class = 'list'style="overflow:auto;"> <!-- scroll,auto,...... -->
+            <section class = 'maintable'>
+                <table style="height: 27px; font-size: 20pt;">
+                    <tbody>
+                        <tr>
+                            <td>생산 자재 창고</td>
+                        </tr>
+                        <tr>
+                            <td><label>제품명</label></td>
+                            <td><label>수량</label></td>
+                            <td><label>분류</label></td>
+                            <td><label>입고일</label></td>
+                            <td><label>현장명</label></td>
+                            <td><label>비고</label></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <table style="height: 27px; font-size: 20pt;">
+                    <tbody>
+                        <tr>
+                            <td>완제품 창고</td>
+                        </tr>
+                        <tr>
+                            <td><label>제품명</label></td>
+                            <td><label>수량</label></td>
+                            <td><label>분류</label></td>
+                            <td><label>입고일</label></td>
+                            <td><label>현장명</label></td>
+                            <td><label>비고</label></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <table style="height: 27px; font-size: 20pt;">
+                    <tbody>
+                        <tr>
+                            <td>불량/반품/AS 창고</td>
+                        </tr>
+                        <tr>
+                            <td><label>제품명</label></td>
+                            <td><label>수량</label></td>
+                            <td><label>분류</label></td>
+                            <td><label>입고일</label></td>
+                            <td><label>현장명</label></td>
+                            <td><label>비고</label></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <table style="height: 27px; font-size: 20pt;">
+                    <tbody>
+                        <tr>
+                            <td>2층 창고</td>
+                        </tr>
+                        <tr>
+                            <td><label>제품명</label></td>
+                            <td><label>수량</label></td>
+                            <td><label>분류</label></td>
+                            <td><label>입고일</label></td>
+                            <td><label>현장명</label></td>
+                            <td><label>비고</label></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </section>
+        </div>
+        
+    <script>
+        $(window).scroll(function(){
+         $(".table1").css("left",0-$(this).scrollLeft());
+        })
+</script>
+    </div>
+    
+</body>
+</html>

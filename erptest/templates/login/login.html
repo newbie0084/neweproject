@@ -1,0 +1,102 @@
+<!-- login.html -->
+
+{% extends "login/base.html" %}
+
+{% block contents %}
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h1>로그인</h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        {{error}}
+    </div>
+</div>
+{% if messages %}
+	{% for message in messages %}
+        <h1 id = 'r_message' style="display: none;">{{ message.message }}</h1>
+    {% endfor %}
+    <script>
+        alert($('#r_message').text());
+    </script>
+{% endif %}
+<div class="row mt-5">
+    <div class="col-12">
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <!-- 원래 로그인 form-group이 있었던 곳 -->
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                    <input type="{{field.field.widget.input_type}}" class="form-control" id="{{field.id_for_label}}" placeholder="{{field.label}}" name="{{field.name}}">
+                </div>
+
+                <!-- 에러 메시지가 있을 경우 출력 -->
+                {% if field.errors %}
+                    <span style="color:red">{{field.errors}}</span>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary" style="float: left;">로그인</button>
+        </form>
+        <!-- <button class="btn btn-primary" style="position: absolute; right: 12px;"><a href = '/register'>회원가입</a></button> -->
+    </div>
+        <!-- <table class = 'id_l_table' style="border : 1pt solid #444444;">
+            <tbody>
+                <tr style="text-align: center;">
+                    <td>
+                        <label>id</label>
+                    </td>
+                    <td>
+                        <label>pw</label>
+                    </td>
+                    <td>
+                        <label>permission</label>
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td>
+                        <label>1234</label>
+                    </td>
+                    <td>
+                        <label>1234</label>
+                    </td>
+                    <td>
+                        <label>1</label>
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td>
+                        <label>qwer</label>
+                    </td>
+                    <td>
+                        <label>qwer</label>
+                    </td>
+                    <td>
+                        <label>1</label>
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td>
+                        <label>asdf</label>
+                    </td>
+                    <td>
+                        <label>asdf</label>
+                    </td>
+                    <td>
+                        <label>2</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table> -->
+
+</div>
+
+
+{% endblock %}

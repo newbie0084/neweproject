@@ -1,0 +1,29 @@
+<!-- error_user_page.html -->
+
+{% extends "login/base.html" %}
+
+{% block contents %}
+<script>
+</script>
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h1>error_user_page</h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        {{error}}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+            {% csrf_token %}
+            <h1>{{w_message}}</h1>
+            <hr>
+            <a href="/logout">메인페이지</a>
+    </div>
+</div>
+
+
+{% endblock %}

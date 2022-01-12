@@ -1,0 +1,38 @@
+출고데이터
+    //데이터출력 데이터
+    제품명 : p_name_i		label
+    제품사양 : p_sp_i		label
+    출고일 : p_exd_i		input
+    현수량 : num_p_now	label
+    출고수량 : num_export	input
+    출고잔량 : num_p_after	label
+    현장명 : construction_site	input
+    목적 : purpose_ex		select
+    purpose_ex_in
+    담당자 : manager		input
+    분류 : p_type		label
+    비고 : p_memo_i		textarea
+
+    //테이블데이터
+    position_p_t : 위치
+    p_n_t : 제품번호
+    p_name_t : 제품명
+    p_sp_t : 제품사양
+    c_name_t : 업체명
+    in_num_t : 입고수량
+    c_place_t : 현장명
+    lot_no_t : 루트번호
+    p_in_t : 입고일
+    p_memo_t : 비고
+    write_date_t : 작성일
+    p_type_t : 분류
+    img_addr_t : 사진위치
+
+    //출고 데이터
+    ps_position   //위치
+    num_ex_st     //출고수량
+    c_site        //현장명
+    purpose_ex    //목적
+    manager       //담당자
+    p_ex_date     //출고일
+    p_memo        //비고

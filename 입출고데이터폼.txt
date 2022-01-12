@@ -1,0 +1,81 @@
+20220110094532599466
+20220110094537838676
+20220110094625095137
+
+로그기록
+
+##wh_data
+# data = {인덱스(날짜):['입고일','위치','분류','세대','품명','규격','수량','현장명','비고','수정일']}
+# data = {day_idx:[p_im_day,p_loc,p_type,p_gen,p_name,p_spec,p_qun,p_con_loc,p_memo,rev_date]}
+#'입고일','위치','분류','세대','품명','규격','수량','현장명','비고','수정일'
+data = {}
+data['20220110094532599466'] = ['입고일1','창고1','방열판','FL4','방열판1','회색','123','현장1','비고1','2022-01-10']
+data['20220110094537838676'] = ['입고일2','창고2','모듈','FL2','모듈2','120W','123','현장2','비고2','2022-01-10']
+data['20220110094625095137'] = ['입고일3','창고3','렌즈','FL3','렌즈3','회색','123','현장3','비고3','2022-01-10']
+
+##DATA
+day_idx = []
+p_im_day = []
+p_loc = []
+p_type = []
+p_gen = []
+p_name = []
+p_spec = []
+p_qun = []
+p_con_loc = []
+p_memo = []
+rev_date = []
+
+##LIST
+day_idx_list = []
+p_im_day_list = []
+p_loc_list = []
+p_type_list = []
+p_gen_list = []
+p_name_list = []
+p_spec_list = []
+p_qun_list = []
+p_con_loc_list = []
+p_memo_list = []
+rev_date_list = []
+
+
+##import_export_data
+# data = {인덱스(날짜):['입고/출고일','위치','분류','세대','품명','규격','변동수량','현장명','비고','수정한사람']}
+# data = {day_idx:[p_im_day,p_loc,p_type,p_gen,p_name,p_spec,p_qun,p_con_loc,p_memo,rev_pm]}
+# data = {day_idx:[p_ex_day,p_loc,p_type,p_gen,p_name,p_spec,p_qun,p_con_loc,p_memo,rev_pm]}
+data['20220110094532599466'] = ['입고일1','창고1','방열판','FL4','방열판1','회색','+123','현장1','비고1','담당자1']
+data['20220110094532599466'] = ['출고일1','창고1','방열판','FL4','방열판1','회색','-123','현장1','비고1','담당자1']
+
+https://ddolcat.tistory.com/676
+
+'입고일','위치','입고분류',{'세대','품명','규격'},'변동수량','현장명','비고','수정한사람'
+'출고일','위치','입고분류',{'세대','품명','규격'},'변동수량','현장명','비고','수정한사람'
+
+위치 중복되면 팝업창 경고
+덮어쓰기 더하기 선택
+
+p_ind_i -> 입고일
+rev_pm_i -> 작성자
+p_type_i -> 입고분류
+p_type
+ps_position_i -> 위치
+p_name_i -> 제품명
+p_name_list
+import_num -> 수량
+construction_site -> 현장명
+p_memo_i -> 비고
+
+입고->위치중복->중복항목or합치기
+출고->수량0->삭제
+
+p_im_day_t 입고일
+p_loc_t 위치
+p_type_t 분류
+p_gen_t 세대
+p_name_t 품명
+p_spec_t 규격
+p_qun_t 수량
+p_con_loc_t 현장명
+p_memo_t 비고
+rev_date_t 수정일

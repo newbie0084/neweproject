@@ -1,0 +1,48 @@
+{% extends "login/base.html" %}
+
+{% block contents %}
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    
+</script>
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h1>회원가입</h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        {{error}}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <form method="POST" action='.'>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">아이디 입력</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="아이디">
+            </div>
+            <div class="form-group">
+                <label for="name_hs">이름 입력</label>
+                <input type="text" class="form-control" id="name_hs" name="name_hs" placeholder="이름">
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호 입력(0000으로 입력)</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+            </div>
+            <div class="form-group">
+                <label for="re-password">비밀번호 확인</label>
+                <input type="password" class="form-control" id="re-password" name="re-password" placeholder="비밀번호 확인">
+            </div>
+            <button type="submit" class="btn btn-primary" style="float: right;" >제출</button>
+        </form>
+        <a href = '/login'>로그인 페이지로 이동</a>
+        
+    </div>
+</div>
+
+{% endblock %}

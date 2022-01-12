@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/com_logo.PNG">
+    <title>Document</title>
+    <style>
+        html {overflow-x: scroll;}
+        body{
+            background-color:rgb(197, 197, 197);
+            padding: 0;
+            margin: 0;
+        }
+        ul {
+			list-style-type: none;
+			overflow: hidden;
+		}
+        .navi li { 
+            float: left; 
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }.navi2 li { 
+            float: left; 
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .main_container {
+            width:100%;
+            height:100%;
+        }.nav-item {
+            padding: 15px;
+            cursor: pointer; /*마우스 커서를 pointer 모양으로 함*/
+        }
+        .nav-item a { /*nav-item 클래스 아래의 a 요소를 선택함*/
+            font-size: 23px;
+            text-align: center;
+            text-decoration: none; /*밑줄 없앰*/
+            color: white;
+        }
+        .nav-item:nth-child(2) {
+            background-color: lightseagreen;
+	        border-radius: 10px / 10px;
+        }
+
+        .nav-item:hover {
+            background-color: grey;
+	        border-radius: 10px / 10px;
+        }.nav-item2 {
+            padding: 15px;
+            cursor: pointer; /*마우스 커서를 pointer 모양으로 함*/
+        }
+        .nav-item2 a { /*nav-item 클래스 아래의 a 요소를 선택함*/
+            text-align: center;
+            text-decoration: none; /*밑줄 없앰*/
+            color: black;
+            font-size: 23px;
+        }
+        .nav-item2:nth-child(1) {
+            background-color: rgb(197, 197, 197);
+	        border-radius: 10px / 10px;
+        }
+
+        .nav-item2:hover {
+            background-color: grey;
+	        border-radius: 10px / 10px;
+        }.navi {
+            overflow-y: scroll;
+            list-style-type: none; /*목록 기호 제거*/
+            width:100%;
+            height:55px;
+            margin: 0; /*쓸 데 없는 공백 제거*/
+            padding: 0; /*쓸 데 없는 공백 제거*/
+            background-color: darkslategrey;
+            float:left;
+            border-bottom-width:thin;
+            border-bottom-color:rgba(25,80,100,0);
+            border-bottom:solid;
+        }
+        .navi2 {
+            list-style-type: none; /*목록 기호 제거*/
+            width:100%;
+            height:55px;
+            margin: 0; /*쓸 데 없는 공백 제거*/
+            padding: 0; /*쓸 데 없는 공백 제거*/
+            background-color: lightseagreen;
+            float:left;
+            border-bottom-width:thin;
+            border-bottom-color:rgba(25,80,100,0);
+            border-bottom:solid;
+        }
+        .codata {
+            width:100%;
+            background-color:rgb(197, 197, 197);
+            float:right;
+            border-bottom-width:thin;
+            border-bottom-color:rgba(129, 129, 129, 0);
+            border-bottom:solid;
+        }
+        .list {
+            width:100%;
+            height:600px;
+            background-color:rgba(197, 197, 197, 0.849);
+            float:left;
+            border-right-width: thick;
+            border-right-color: black;
+            /* border-bottom-width:thin;
+            border-bottom-color:rgba(25,80,100,0);
+            border-bottom:solid; */
+        }
+        select{
+            text-align-last: center;
+        }.maintable tr{
+            border : 1pt solid #444444;
+        }
+        .maintable td{
+            border : 1pt solid #444444;
+            text-align: center;
+        }
+        .maintable table{
+            margin:auto;
+        }
+        .maintable li{
+            text-align: center;
+            list-style-type: none; /*목록 기호 제거*/
+        }
+        .rmbtn{
+            position:absolute;
+            margin-right: 10px;
+            font-size: 22px;
+            right: 45px;
+            margin-bottom: 10px;
+        }
+        .infosavebtn{
+            float: right;
+            margin-right: 120px;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        #mykeyword{
+            margin-left: 10px;
+            margin-top: 10px;
+            font-size: 15px;
+        }
+        #sort_btn{
+            padding: 0;
+            font-size: 15px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+
+        function tag_open_button(){
+            $(".tag_open_button").hide();
+            $(".tag_close_button").show();
+            $(".data_input_tags").show();
+        };
+        function tag_close_button(){
+            $(".tag_close_button").hide();
+            $(".tag_open_button").show();
+            $(".data_input_tags").hide();
+        };
+
+        // 탐색창
+        $(document).ready(function() {
+            $("#mykeyword").keyup(function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable_tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                // $("#myTable > tbody > tr").hide();
+                // var temp = $("#myTable > tbody > tr > td:nth-child(5n+4):contains('" + value + "')");
+                // $(temp).parent().show();
+            });
+        });
+
+        // 데이터 올리기 (수정필요)
+        function data_show(idx){
+
+        };
+        
+        // 데이터 추가
+        function add_item_box(){
+
+            var p_name = document.getElementById('p_name_i').value;
+            var p_gen = document.getElementById('LED_gen_i').value;
+            var p_usage = document.getElementById('use_i').value;
+            var p_type = document.getElementById('stype_i').value;
+            var p_angle = document.getElementById('angle_i').value;
+            var p_watt = document.getElementById('watt_i').value;
+            var p_l_type = document.getElementById('LED_m_i').value;
+            var p_c_t = document.getElementById('ct_i').value;
+            var p_com = document.getElementById('com_list_i').value;
+            var p_spec = document.getElementById('p_spec_i').value;
+            var p_memo = document.getElementById('p_memo_i').value;
+
+            //중복처리필요
+
+            if(p_name.length==0){
+                alert('등록할 자재명을 입력하세요.');
+            }
+            else{
+                // alert('ready');
+                $.ajax({
+                    url: '/add_p_data/',
+                    method : 'POST',
+                    data: {
+                        p_name:p_name,
+                        p_gen:p_gen,
+                        p_usage:p_usage,
+                        p_type:p_type,
+                        p_angle:p_angle,
+                        p_watt:p_watt,
+                        p_l_type:p_l_type,
+                        p_c_t:p_c_t,
+                        p_com:p_com,
+                        p_spec:p_spec,
+                        p_memo:p_memo
+                    },
+                    beforeSend: function() {
+                    // things to do before submit
+                    },
+                    success: function(response) {
+                        alert('추가완료');
+                        location.reload();
+                    }
+                });
+            }
+        }
+
+        // 취소버튼
+        function clear_btn(){
+            location.reload();
+        }
+
+        // 데이터 삭제 수정필요!!
+        function remove_p_data(){
+            var len_i = document.getElementById('len_idx_v').value;
+            var data_num = prompt('데이터 번호를 입력하세요.', 0);
+            
+            var position_p = $('a#position_p_t.'+data_num).text();
+            var p_name = $('a#p_name_t.'+data_num).text();
+            var p_sp = $('a#p_sp_t.'+data_num).text();
+            var del_string = position_p+" || "+p_name+" || "+p_sp;
+
+            if(data_num==null){
+                alert('취소');
+            }
+            else{
+                if(data_num>0&&len_i-data_num>=0){
+                    if (confirm(data_num+ "번 데이터 "+del_string+"을 삭제합니다. 계속합니까?")) {
+                        // 확인 버튼 클릭 시 동작
+                        $.ajax({
+                            url: '/del_import/',
+                            method : 'POST',
+                            data: {position_p:position_p},
+                            beforeSend: function() {
+                            // things to do before submit
+                            },
+                            success: function(response) {
+                                alert('제거완료');
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        // 취소 버튼 클릭 시 동작
+                        alert("동작을 취소했습니다.");
+                    };
+                }
+                else{
+                    if (confirm("숫자를 정확히 입력하세요. 계속합니까?")) {
+                    // 확인 버튼 클릭 시 동작
+                        remove_p_data(len_i);
+                    } else {
+                        // 취소 버튼 클릭 시 동작
+                        alert("동작을 취소했습니다.");
+                    };
+                };
+
+            }
+
+        }
+
+// ###########################################################
+        // 테이블 정렬
+// ###########################################################
+
+        // 출처 : http://tonks.tistory.com/79 
+        
+        /* sortingNumber() : 숫자인 실수만으로 되어있을 때, 적용될 함수 */ 
+        
+        function sortingNumber( a , b ){  
+        
+        if ( typeof a == "number" && typeof b == "number" ) return a - b; 
+
+        // 천단위 쉼표와 공백문자만 삭제하기.  
+        var a = ( a + "" ).replace( /[,\s\xA0]+/g , "" ); 
+        var b = ( b + "" ).replace( /[,\s\xA0]+/g , "" ); 
+
+        var numA = parseFloat( a ) + ""; 
+        var numB = parseFloat( b ) + ""; 
+
+        if ( numA == "NaN" || numB == "NaN" || a != numA || b != numB ) return false; 
+
+        return parseFloat( a ) - parseFloat( b ); 
+        } 
+
+        /* changeForSorting() : 문자열 바꾸기. */ 
+
+        function changeForSorting( first , second ){  
+
+                // 문자열의 복사본 만들기. 
+                var a = first.toString().replace( /[\s\xA0]+/g , " " ); 
+                var b = second.toString().replace( /[\s\xA0]+/g , " " ); 
+
+                var change = { first : a, second : b }; 
+
+                if ( a.search( /\d/ ) < 0 || b.search( /\d/ ) < 0 || a.length == 0 || b.length == 0 ) return change; 
+
+                var regExp = /(\d),(\d)/g; // 천단위 쉼표를 찾기 위한 정규식. 
+
+                a = a.replace( regExp , "$1" + "$2" ); 
+                b = b.replace( regExp , "$1" + "$2" ); 
+
+                var unit = 0; 
+                var aNb = a + " " + b; 
+                var numbers = aNb.match( /\d+/g ); // 문자열에 들어있는 숫자 찾기 
+
+                for ( var x = 0; x < numbers.length; x++ ){ 
+
+                        var length = numbers[ x ].length; 
+                        if ( unit < length ) unit = length; 
+                } 
+
+                var addZero = function( string ){ // 숫자들의 단위 맞추기 
+
+                        var match = string.match( /^0+/ ); 
+
+                        if ( string.length == unit ) return ( match == null ) ? string : match + string; 
+
+                        var zero = "0"; 
+
+                        for ( var x = string.length; x < unit; x++ ) string = zero + string; 
+
+                        return ( match == null ) ? string : match + string; 
+                }; 
+
+                change.first = a.replace( /\d+/g, addZero ); 
+                change.second = b.replace( /\d+/g, addZero ); 
+
+                return change; 
+        } 
+
+        /* byLocale() */ 
+
+        function byLocale(){ 
+
+                var compare = function( a , b ){ 
+
+                        var sorting = sortingNumber( a , b ); 
+
+                        if ( typeof sorting == "number" ) return sorting; 
+
+                        var change = changeForSorting( a , b ); 
+
+                        var a = change.first; 
+                        var b = change.second; 
+
+                        return a.localeCompare( b ); 
+                }; 
+
+                var ascendingOrder = function( a , b ){  return compare( a , b );  }; 
+                var descendingOrder = function( a , b ){  return compare( b , a );  }; 
+
+                return { ascending : ascendingOrder, descending : descendingOrder }; 
+        } 
+
+        /* replacement() */ 
+        
+        function replacement( parent ){  
+                var tagName = parent.tagName.toLowerCase(); 
+                if ( tagName == "table" ) parent = parent.tBodies[ 0 ]; 
+                tagName = parent.tagName.toLowerCase(); 
+                if ( tagName == "tbody" ) var children = parent.rows; 
+                else var children = parent.getElementsByTagName( "li" ); 
+
+                var replace = { 
+                        order : byLocale(), 
+                        index : false, 
+                        array : function(){ 
+                                var array = [ ]; 
+                                for ( var x = 0; x < children.length; x++ ) array[ x ] = children[ x ]; 
+                                return array; 
+                        }(), 
+                        checkIndex : function( index ){ 
+                                if ( index ) this.index = parseInt( index, 10 ); 
+                                var tagName = parent.tagName.toLowerCase(); 
+                                if ( tagName == "tbody" && ! index ) this.index = 0; 
+                        }, 
+                        getText : function( child ){ 
+                                if ( this.index ) child = child.cells[ this.index ]; 
+                                return getTextByClone( child ); 
+                        }, 
+                        setChildren : function(){ 
+                                var array = this.array; 
+                                while ( parent.hasChildNodes() ) parent.removeChild( parent.firstChild ); 
+                                for ( var x = 0; x < array.length; x++ ) parent.appendChild( array[ x ] ); 
+                        }, 
+                        ascending : function( index ){ // 오름차순 
+                                this.checkIndex( index ); 
+                                var _self = this; 
+                                var order = this.order; 
+                                var ascending = function( a, b ){ 
+                                        var a = _self.getText( a ); 
+                                        var b = _self.getText( b ); 
+                                        return order.ascending( a, b ); 
+                                }; 
+                                this.array.sort( ascending ); 
+                                this.setChildren(); 
+                        }, 
+                        descending : function( index ){ // 내림차순
+                                this.checkIndex( index ); 
+                                var _self = this; 
+                                var order = this.order; 
+                                var descending = function( a, b ){ 
+                                        var a = _self.getText( a ); 
+                                        var b = _self.getText( b ); 
+                                        return order.descending( a, b ); 
+                                }; 
+                                this.array.sort( descending ); 
+                                this.setChildren(); 
+                        } 
+                }; 
+                return replace; 
+        } 
+
+        function getTextByClone( tag ){  
+                var clone = tag.cloneNode( true ); // 태그의 복사본 만들기. 
+                var br = clone.getElementsByTagName( "br" ); 
+                while ( br[0] ){ 
+                        var blank = document.createTextNode( " " ); 
+                        clone.insertBefore( blank , br[0] ); 
+                        clone.removeChild( br[0] ); 
+                } 
+                var isBlock = function( tag ){ 
+                        var display = ""; 
+                        if ( window.getComputedStyle ) display = window.getComputedStyle ( tag, "" )[ "display" ]; 
+                        else display = tag.currentStyle[ "display" ]; 
+                        return ( display == "block" ) ? true : false; 
+                }; 
+                var children = clone.getElementsByTagName( "*" ); 
+                for ( var x = 0; x < children.length; x++){ 
+                        var child = children[ x ]; 
+                        if ( ! ("value" in child) && isBlock(child) ) child.innerHTML = child.innerHTML + " "; 
+                } 
+                var textContent = ( "textContent" in clone ) ? clone.textContent : clone.innerText; 
+                return textContent; 
+        } 
+    </script>
+</head>
+<body>
+    <input id = "len_idx_v" style="display: none;" value={{ len_idx }}>
+
+    <div class='main_container'>
+        <div class='navi'>
+            <ul class="nav-container">
+                <li class="nav-item"> <a href="/m_p_stock_location">재고 현황</a> </li>
+                <li class="nav-item"> <a href="/m_p_list">자재 목록</a> </li>
+                <li class="nav-item"><a href="/m_import2">입고 / 출고</a> </li>
+                <li class="nav-item" style="float: right;"><a href="/logout">로그아웃</a></li>
+                <li class="u_id" style="float: right;">{{l_id}}({{l_name}})</li>
+                <style>.u_id {padding: 15px;}</style>
+            </ul>
+        </div>
+        <div class='navi2'>
+            <ul class="nav-container2">
+                <li class="nav-item2"> <a href="/m_p_list">자재 및 제품 목록</a> </li>
+            </ul>
+        </div>
+        <div class='codata'>
+            {% csrf_token %}
+            <p style="font-size: 21px; font-weight: 900;margin-top: 0;margin-bottom: 0;">&nbsp;&nbsp;&nbsp;자재 및 제품 정보
+                <button onclick="tag_open_button()" class = "tag_open_button"> 데이터 입력 및 수정 ▼</button>
+                <button onclick="tag_close_button()" class = "tag_close_button"> 데이터 입력 및 수정 ▲</button>
+            </p>
+            <hr style="margin-bottom: 0;margin-top:0;">
+                <table class="input_table data_input_tags" style="padding-left: 30px; padding-top: 10px; font-size: 18px;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 400px;">
+                              &nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;품&nbsp;&nbsp;&nbsp;명 : <input type="text" id = "p_name_i" style="font-size: 18px;">
+                            </td>
+                            <td style="width: 600px;">
+                              &nbsp;&nbsp;세&nbsp;대&nbsp;분&nbsp;류 : 
+                              <select id="LED_gen_list" style="font-size: 18px; text-align-last: center; width: 226px;">
+                                <option value="no_gen" id="LED_gen_dis">- - 세 대 선 택 - -</option>
+                                <option value="FLA">공용</option>
+                                <option value="FL4B_0">5세대용 자재</option>
+                                <option value="FL4B_1">5세대 반제품</option>
+                                <option value="FL4B_2">5세대 완제품</option>
+                                <option value="FL4_0">4세대용 자재</option>
+                                <option value="FL4_1">4세대 완제품</option>
+                                <option value="FL4_2">4세대 반제품</option>
+                                <option value="FL3_0">3세대 이전 용 자재</option>
+                                <option value="FL3_1">3세대 이전 완제품</option>
+                                <option value="FL3_2">3세대 이전 반제품</option>
+                              </select>
+                              <input type="text" class="LED_gen_i" id = "LED_gen_i" style="font-size: 18px;"> <!-- 세대 값저장 -->
+                            </td>
+                        </tr>
+                        <tr class = "use_list_in">
+                            <td colspan="2">
+                                &nbsp;&nbsp;용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 : 
+                                <select id="use_list" style="font-size: 18px; text-align-last: center; width: 226px;">
+                                    <option value="no_use" id="use_dis">- - 용 도 선 택 - -</option>
+                                    <option value="USE_0">모듈</option>
+                                    <option value="USE_1">렌즈</option>
+                                    <option value="USE_2">안정기</option>
+                                    <option value="USE_3">안정기함</option>
+                                    <option value="USE_4">방열판</option>
+                                    <option value="USE_5">바이저</option>
+                                    <option value="USE_6">브라켓류</option>
+                                    <option value="USE_7">가대브라켓</option>
+                                    <option value="USE_8">기타</option>
+                                </select>
+                                <input type="text" class="use_i" id = "use_i" style="font-size: 18px;"> <!-- 용도 값저장 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 400px;" colspan="2">
+                              &nbsp;&nbsp;구&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;분 : 
+                              <select id="stype_list" style="font-size: 18px; text-align-last: center; width: 226px;">
+                                <option value="no_stype" id="stype_dis">- - 구 분 선 택 - -</option>
+                                <option value="STYPE_0">정규</option>
+                                <option value="STYPE_1">비규격</option>
+                                <option value="STYPE_2">단종 대상</option>
+                                <option value="STYPE_3">정식민수용</option>
+                                <option value="STYPE_4">입찰용</option>
+                                <option value="STYPE_5">기타</option>
+                              </select>
+                              <input type="text" class="stype_i" id = "stype_i" style="font-size: 18px;"> <!-- 세대 값저장 -->
+                            </td>
+                        </tr>
+                        <tr class = "LED_spec">
+                            <td>
+                                &nbsp;&nbsp;배&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;광 : 
+                                <select id="angle_list" style="font-size: 18px; text-align-last: center; width: 226px;">
+                                    <option value="no_angle" id="angle_dis">- - 배 광 선 택 - -</option>
+                                    <option value="A7">7도</option>
+                                    <option value="A13">13도</option>
+                                    <option value="A15">15도</option>
+                                    <option value="A17">17도</option>
+                                    <option value="A20">20도</option>
+                                    <option value="A25">25도</option>
+                                    <option value="A30">30도</option>
+                                </select>
+                                <input type="text" class="angle_i" id = "angle_i" style="font-size: 18px;"> <!-- 배광 값저장 -->
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;량 : 
+                                <select id="watt_list" style="font-size: 18px; text-align-last: center; width: 226px;">
+                                    <option value="no_watt" id="watt_dis">- - 용 량 선 택 - -</option>
+                                    <option value="100W">100W</option>
+                                    <option value="150W">150W</option>
+                                    <option value="200W">200W</option>
+                                    <option value="300W">300W</option>
+                                    <option value="400W">400W</option>
+                                    <option value="600W">600W</option>
+                                </select>
+                                <input type="text" class="watt_i" id = "watt_i" style="font-size: 18px;"> <!-- 용량 값저장 -->
+                            </td>
+                        </tr>
+                        <tr class = "LED_spec">
+                            <td>
+                                &nbsp;&nbsp;L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D : 
+                                <select id="LED_m_list" style="font-size: 18px; text-align-last: center; width: 226px;">
+                                    <option value="no_led" id="led_dis">- - L E D 선 택 - -</option>
+                                    <option value="LED_1">OSRAM</option>
+                                    <option value="LED_2">서울M3</option>
+                                </select>
+                                <input type="text" class="LED_m_i" id = "LED_m_i" style="font-size: 18px;"> <!-- led 값저장 -->
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;색&nbsp;&nbsp;&nbsp;온&nbsp;&nbsp;&nbsp;도 : 
+                                <select id="ct_list" style="font-size: 18px; text-align-last: center; width: 226px;">
+                                    <option value="no_ct" id="ct_dis">- -색온도 선택- -</option>
+                                    <option value="CT_1">모듈</option>
+                                    <option value="CT_2">렌즈</option>
+                                </select>
+                                <input type="text" class="ct_i" id = "ct_i" style="font-size: 18px;"> <!-- 색온도 값저장 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="com_list">
+                                &nbsp;&nbsp;거&nbsp;&nbsp;&nbsp;래&nbsp;&nbsp;&nbsp;처 : 
+                                <select id="com_list" style="font-size: 18px; text-align-last: center; width: 150px;">
+                                    <option value="no_com" id="com_dis">- - 선 택 - -</option>
+                                    <option value="COM_1">TGF-오스람</option>
+                                    <option value="COM_2">SSL-서울반도체</option>
+                                    <option value="COM_3">재현금형</option>
+                                    <option value="COM_4">세류전자</option>
+                                    <option value="COM_5">유니온전자통신</option>
+                                    <option value="COM_6">현대철강레이저</option>
+                                    <option value="COM_7">가공 - 태일금속 도장 - 태화분체</option>
+                                </select>
+                                <input type="text" id = "com_list_i" style="display: none; font-size: 18px;"><!-- 거래처 값저장 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;&nbsp;사양 및 규격 : 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <textarea name="" id="p_spec_i" cols="100" rows="2" style="margin-bottom: 0;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;&nbsp;비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;고 : 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <textarea name="" id="p_memo_i" cols="100" rows="2" style="margin-bottom: 0;"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Select 변경 script -->
+                <script>
+                    var date_pn =  new Date().toISOString().slice(0, 10).replace(/-/gi,'');
+                    date_pn = 'HS_'+date_pn;
+
+
+                    $(function(){
+
+                        $(".data_input_tags").hide();
+                        $(".LED_gen_i").hide();
+                        $(".use_list_in").hide();
+                        $(".use_i").hide();
+                        $(".stype_i").hide();
+                        $(".angle_i").hide();
+                        $(".watt_i").hide();
+                        $(".LED_m_i").hide();
+                        $(".ct_i").hide();
+                        $(".LED_spec").hide();
+                        $(".tag_close_button").hide();
+                        $(".com_list").hide();
+
+
+                        
+                        // 세대명변경시
+                        $("#LED_gen_list").change(function() {
+                            
+                            var el_gen = document.getElementById('LED_gen_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("LED_gen_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('LED_gen_i').value = selectText;
+                            
+                            if($("#LED_gen_list").val() == "FL4B_0" || $("#LED_gen_list").val() == "FL4_0" || $("#LED_gen_list").val() == "FL3_0" || $("#LED_gen_list").val() == "FLA"){
+                                $(".LED_spec").hide();
+                                $(".use_list_in").show();
+                                $(".com_list").show();
+                            }
+                            
+                            else{
+                                $(".com_list").hide();
+                                $(".use_list_in").hide();
+                                $(".LED_spec").show();
+                            }
+                        })
+
+                        // 용도변경시
+                        $("#use_list").change(function() {
+                            
+                            var el_gen = document.getElementById('use_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("use_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('use_i').value = selectText;
+                            
+                        })
+
+                        // 구분변경시
+                        $("#stype_list").change(function() {
+                            
+                            var el_gen = document.getElementById('stype_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("stype_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('stype_i').value = selectText;
+                            
+                        })
+
+                        // 배광변경시
+                        $("#angle_list").change(function() {
+                            
+                            var el_gen = document.getElementById('angle_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("angle_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('angle_i').value = selectText;
+                            
+                        })
+
+                        // 용량변경시
+                        $("#watt_list").change(function() {
+                            
+                            var el_gen = document.getElementById('watt_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("watt_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('watt_i').value = selectText;
+                            
+                        })
+
+                        // LED변경시
+                        $("#LED_m_list").change(function() {
+                            
+                            var el_gen = document.getElementById('led_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("LED_m_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('LED_m_i').value = selectText;
+                            
+                        })
+
+                        // 색온도변경시
+                        $("#ct_list").change(function() {
+                            
+                            var el_gen = document.getElementById('ct_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("ct_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('ct_i').value = selectText;
+                            
+                        })
+
+                        // 거래처변경시
+                        $("#com_list").change(function() {
+                            
+                            var el_gen = document.getElementById('com_dis');
+                            el_gen.setAttribute('disabled','disabled');
+
+                            var p_name_list = document.getElementById("com_list");
+                            var selectText = p_name_list.options[p_name_list.selectedIndex].text;
+                            var selectValue = p_name_list.options[p_name_list.selectedIndex].value;
+
+                            document.getElementById('com_list_i').value = selectText;
+                            
+                        })
+
+
+                        // 분류변경시
+                        $("#p_type").change(function() {
+                            
+                            var el_pn = document.getElementById('select_type_dis');
+                            el_pn.setAttribute('disabled','disabled');
+
+                            if($("#p_type").val() == "type_direct") {
+                                document.getElementById('p_type_i').value = ''
+                                $("#p_type_i").show();
+                            }  else {
+                                
+                                var p_type = document.getElementById("p_type");
+                                var selectText = p_type.options[p_type.selectedIndex].text;
+                                var selectValue = p_type.options[p_type.selectedIndex].value;
+
+                                document.getElementById('p_type_i').value = selectText;
+                                $("#p_type_i").hide();
+                            }
+                        })
+                    });
+
+                </script>
+            {% csrf_token %}
+                <p class="data_input_tags"  style="font-size: 18px;">
+                    <!-- <button class="" onclick="remove_p_data();" style="float: right;margin-right: 10px; font-size: 18px;">삭제</button> -->
+                    <button id = "clrbutton" style="float: right;margin-right: 10px; font-size: 18px;" onclick="clear_btn();">취소</button>
+                    <button type="submit" class="infosavebtn" onclick="add_item_box();" style="float: right;margin-right: 10px; font-size: 18px;">저장</button>
+                </p>
+        </div>
+        <div class='list' >  <!-- scroll,auto,...... -->            
+            <div class="search_div">
+                <input type="text" id="mykeyword" placeholder="검색어를 입력하세요">
+                
+                <input type="checkbox" id ="col2" name="col2" checked="checked" /><label for="col2">제품명</label>
+                <input type="checkbox" id ="col3" name="col3" checked="checked" /><label for="col3">세대</label>
+                <input type="checkbox" id ="col4" name="col4" checked="checked" /><label for="col4">용도</label>
+                <input type="checkbox" id ="col5" name="col5" checked="checked" /><label for="col5">구분</label>
+                <input type="checkbox" id ="col6" name="col6" checked="checked" /><label for="col6">배광</label>
+                <input type="checkbox" id ="col7" name="col7" checked="checked" /><label for="col7">용량</label>
+                <input type="checkbox" id ="col8" name="col8" checked="checked" /><label for="col8">LED</label>
+                <input type="checkbox" id ="col9" name="col9" checked="checked" /><label for="col9">색온도</label>
+                <input type="checkbox" id ="col10" name="col10" checked="checked" /><label for="col10">거래처</label>
+                <input type="checkbox" id ="col11" name="col11" checked="checked" /><label for="col11">사양 및 규격</label>
+                <input type="checkbox" id ="col12" name="col12" checked="checked" /><label for="col12">비고</label>
+            </div>
+            <hr style="padding: 0;margin-bottom: 0;">
+            <section class = 'maintable'>
+                <table id = 'list_table' style="height: 27px; font-size: 13px;">
+                    <thead>
+                        <tr>
+                            <td class="col1" style="width: 100px;">No.<button id = 'sort_btn' onclick="sortTD ( 0 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 0 )">▼</button></td>
+                            <td class="col2" style="width: 150px;">제품명<button id = 'sort_btn' onclick="sortTD ( 1 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 1 )">▼</button></td>
+                            <td class="col3" style="width: 150px;">세대<button id = 'sort_btn' onclick="sortTD ( 2 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 2 )">▼</button></td>
+                            <td class="col4" style="width: 150px;">용도<button id = 'sort_btn' onclick="sortTD ( 3 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 3 )">▼</button></td>
+                            <td class="col5" style="width: 150px;">구분<button id = 'sort_btn' onclick="sortTD ( 4 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 4 )">▼</button></td>
+                            <td class="col6" style="width: 150px;">배광<button id = 'sort_btn' onclick="sortTD ( 5 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 5 )">▼</button></td>
+                            <td class="col7" style="width: 150px;">용량<button id = 'sort_btn' onclick="sortTD ( 6 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 6 )">▼</button></td>
+                            <td class="col8" style="width: 150px;">LED<button id = 'sort_btn' onclick="sortTD ( 7 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 7 )">▼</button></td>
+                            <td class="col9" style="width: 150px;">색온도<button id = 'sort_btn' onclick="sortTD ( 8 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 8 )">▼</button></td>
+                            <td class="col10" style="width: 150px;">거래처<button id = 'sort_btn' onclick="sortTD ( 9 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 9 )">▼</button></td>
+                            <td class="col11" style="width: 200px;">사양 및 규격<button id = 'sort_btn' onclick="sortTD ( 10 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 10 )">▼</button></td>
+                            <td class="col12" style="width: 150px;">비고<button id = 'sort_btn' onclick="sortTD ( 11 )">▲</button><button id = 'sort_btn' onclick="reverseTD ( 11 )">▼</button></td>
+                        </tr>
+                    </thead>
+
+                    <tbody id="myTable_tbody">
+
+						{% csrf_token %}
+                            
+                        {% for i in index_list%}
+                            {% with forloop.counter|cut:" " as index %}
+                        <tr class = 'pdata'>
+                            <p class = {{index}} id = "idx"style="display: none;">{{i}}</p>
+                            <td><button id = {{index}} name = "number" type="button" style="font-size: 18px; width: 40px;height: 32px;" onclick="data_show(this.id)">{{index}}</button></td>
+                            <td><a class = {{index}} id = "p_name_t" name = "info_item">{{ p_name_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_gen_t" name = "info_item">{{ p_gen_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_usage_t" name = "info_item">{{ p_usage_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_type_t" name = "info_item">{{ p_type_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_angle_t" name = "info_item">{{ p_angle_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_watt_t" name = "info_item">{{ p_watt_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_l_type_t" name = "info_item">{{ p_l_type_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_c_t_t" name = "info_item">{{ p_c_t_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_com_t" name = "info_item">{{ p_com_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_spec_t" name = "info_item">{{ p_spec_list|slice:index|last }}</a></td>
+                            <td><a class = {{index}} id = "p_memo_t" name = "info_item">{{ p_memo_list|slice:index|last }}</a></td>
+                        </tr>
+                            {% endwith %}
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    var myTable = document.getElementById( "list_table" ); 
+    var replace = replacement( myTable ); 
+    function sortTD( index ){    replace.ascending( index );    } 
+    function reverseTD( index ){    replace.descending( index );    } 
+</script>
+<script>
+    $(document).ready(function() {
+        $('input[type="checkbox"]').click(function() {
+            var index = $(this).attr('name').substr(3);
+            index--;
+            $('#myTable_tbody tr').each(function() { 
+                $('td:eq(' + index + ')',this).toggle();
+            });
+            $('td.' + $(this).attr('name')).toggle();
+        });
+    });
+</script>
+</body>
+</html>
+
+<!-- 제품명 p_name p_name_i
+세대 p_gen LED_gen_i LED_gen_list
+용도 p_usage use_i use_list
+구분 p_type stype_i stype_list
+배광 p_angle angle_i angle_list
+용량 p_watt watt_i watt_list
+LED p_l_type LED_m_i LED_m_list
+색온도 p_c_t ct_i ct_list
+거래처 p_com com_list_i
+사양 및 규격 p_spec com_list p_spec_i
+비고 p_memo p_memo_i
+p_name
+p_gen
+p_usage
+p_type
+p_angle
+p_watt
+p_l_type
+p_c_t
+p_com
+p_spec
+p_memo
+
+pn_list
+p_name_list
+p_gen_list
+p_usage_list
+p_angle_list
+p_watt_list
+p_l_type_list
+p_c_t_list
+p_com_list
+p_spec_list
+p_memo_list -->
